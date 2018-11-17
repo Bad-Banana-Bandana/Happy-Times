@@ -177,7 +177,9 @@ def SendData(self, BAS_str, BAS_dex, BAS_con, BAS_int, BAS_wis, BAS_cha, RB_str,
 
 
 class Strength:
-    def __init__(self, BAS_str, RB_str, IB_str, EB_str):
+    def __init__(self, totAS_str, mod_str, BAS_str, RB_str, IB_str, EB_str):
+        self.__totAS_str = totAS_str
+        self.__mod_str = mod_str
         self.__BAS_str = BAS_str
         self.__RB_str = RB_str
         self.__IB_str = IB_str
@@ -199,13 +201,13 @@ class Strength:
         totAS_str = self.__BAS_str + self.__RB_str + self.__IB_str + self.__EB_str
 
     def get_totAS_str(self):
-        return totAS_str
+        return self.__totAS_str
 
     def CalcModAS(self, totAS_str):
         mod_str = math.floor(totAS_str/2)-5
 
     def get_mod_str(self):
-        return mod_str
+        return self.__mod_str
 
     def get_BAS_str(self):
         return self.__BAS_str
@@ -220,10 +222,11 @@ class Strength:
         return self.__EB_str
 
 class ASFrame:
-    def __init__(self, BAS_str, RB_str, IB_str, EB_str):
-        strength = Strength(BAS_str, RB_str, IB_str, EB_str)
-        frmASResults = tkinter.ttk.Frame(MainWindow.MW)
-        frmASResults.grid(column = 1, row = 0, padx = 15, paxy = 15, sticky = (N, W, E, S))
+    def __init__(self, totAS_str, mod_str, BAS_str, RB_str, IB_str, EB_str):
+        strength = Strength(totAS_str, mod_str, BAS_str, RB_str, IB_str, EB_str)
+        main_window = MainWindow()
+        frmASResults = tkinter.ttk.Frame(main_window.MW)
+        frmASResults.grid(column = 1, row = 0, padx = 15, pady = 15, sticky = (N, W, E, S))
         frmASResults.columnconfigure(0, weight=1)
         frmASResults.rowconfigure(0, weight=1)
         frmASResults['borderwidth'] = 2
