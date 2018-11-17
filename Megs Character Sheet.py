@@ -136,6 +136,57 @@ class MainWindow:
         ent_EBwis.grid(column = 6, row = 8)
         ent_EBcha.grid(column = 7, row = 8)
 
+def SendData(self, BAS_str, BAS_dex, BAS_con, BAS_int, BAS_wis, BAS_cha, RB_str, RB_dex, RB_con, RB_int, RB_wis, RB_cha, IB_str, IB_dex, IB_con, IB_int, IB_wis, IB_cha, EB_str, EB_dex, EB_con, EB_int, EB_wis, EB_cha):
+    BAS_str = int(BAS_str.get('1.0', 'end'))
+    BAS_dex = int(BAS_dex.get('1.0', 'end'))
+    BAS_con
+    BAS_int
+    BAS_wis
+    BAS_cha
+    RB_str
+    RB_dex
+    RB_con
+    RB_int
+    RB_wis
+    RB_cha
+    IB_str
+    IB_dex
+    IB_con
+    IB_int
+    IB_wis
+    IB_cha
+    EB_str
+    EB_dex
+    EB_con
+    EB_int
+    EB_wis
+    EB_cha
+
+
+class Strength:
+    def __init__(self, BAS_str, RB_str, IB_str, EB_str):
+        self.BAS_str = BAS_str
+        self.RB_str = RB_str
+        self.IB_str = IB_str
+        self.EB_str = EB_str
+
+    def set_BAS_str(self, BAS_str):
+        self.BAS_str = BAS_str
+
+    def set_RB_str(self, RB_str):
+        self.BR_str = BR_str
+
+    def set_IB_str(self, IB_str):
+        self.IB_str = IB_str
+
+    def set_EB_str(self, EB_str):
+        self.EB_str = EB_str
+
+
+
+
+
+
 def main():
     main_window = MainWindow()
     main_window.MW.mainloop()
