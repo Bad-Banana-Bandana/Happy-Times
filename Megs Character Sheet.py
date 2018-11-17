@@ -12,7 +12,7 @@ class MainWindow:
         self.MW = tkinter.Tk()
         self.MW.title("Main Window")
         frmAbilityScores = tkinter.ttk.Frame(self.MW)
-        frmAbilityScores.grid(column = 0, row = 0, sticky = (N, W, E, S))
+        frmAbilityScores.grid(column = 0, row = 0, padx = 15, pady = 15, sticky = (N, W, E, S))
         frmAbilityScores.columnconfigure(0, weight=1)
         frmAbilityScores.rowconfigure(0, weight=1)
         frmAbilityScores['borderwidth'] = 2
@@ -168,13 +168,14 @@ def SendData(self, BAS_str, BAS_dex, BAS_con, BAS_int, BAS_wis, BAS_cha, RB_str,
         EB_wis = int(EB_wis.get())
         EB_cha = int(EB_cha.get())
         if BAS_str > 99 or BAS_str <= 0:
-            #tkinter.messagebox.showerror(message = "Your character's strength score must be between 99 and 1.")
-            print("Something Here")
+            tkinter.messagebox.showerror(message = "Your character's strength score must be between 99 and 1.")
         else:
-            #strength = Strength(BAS_str, RB_str, IB_str, EB_str)
-            print("Something Here2")
+            strength = Strength(BAS_str, RB_str, IB_str, EB_str)
+            ASResults = ASFrame(MainWindow, Strength)
+
     except ValueError:
         tkinter.messagebox.showerror(message = "All boxes must have contents and your character's strength must be an integer.")
+
 
 class Strength:
     def __init__(self, BAS_str, RB_str, IB_str, EB_str):
@@ -195,10 +196,13 @@ class Strength:
     def set_EB_str(self, EB_str):
         self.__EB_str = EB_str
 
-    #def CalcTotalAS(self, BAS_str, RB_str, IB_str, EB_str):
-        #totAS_str = self.__BAS_str + self.__RB_str + self.__IB_str + self.__EB_str
-        #mod_str = = math.floor(totAS_str/2)-5
-        #return mod_str
+    def CalcTotalAS(self, BAS_str, RB_str, IB_str, EB_str):
+        totAS_str = self.__BAS_str + self.__RB_str + self.__IB_str + self.__EB_str
+        return totAS_str
+
+    def CalcModAS(self, totAS_str):
+        mod_str = math.floor(totAS_str/2)-5
+        return mod_str
 
     def get_BAS_str(self):
         return self.__BAS_str
@@ -212,11 +216,16 @@ class Strength:
     def get_EB_str(self):
         return self.__EB_str
 
+class ASFrame(MainWindow, Strength):
+    def __init__(self, BAS_str, RB_str, IB_str, EB_str):
+        MainWindow.__init__(self)
+        Strength.__init__(self, BAS_str, RB_str, IB_str, EB_str)
+        frmASResults = tkinter.ttk.Frame(self.MW)
+        frmASResults.grid(column = 1, row = 0, padx = 15, paxy = 15, sticky = (N, W, E, S))
+        frmASResults.columnconfigure(0, weight=1)
+        frmASResults.rowconfigure(0, weight=1)
+        frmASResults['borderwidth'] = 2
+        frmASResults['relief'] = 'raised'
 
-
-
-def main():
-    main_window = MainWindow()
-    main_window.MW.mainloop()
-
-main()
+        tkinter.ttk.Label(frmASResults, text = totAS_str).grid(column = 1, row = 1, padx = 5, pady = 5)
+        tkinter.ttk.Label(frmASResults, text = mod_str).grid(column = 2, row = 1, padx = 5, pady = 5)
