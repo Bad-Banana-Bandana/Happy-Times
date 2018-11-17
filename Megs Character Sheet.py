@@ -137,52 +137,71 @@ class MainWindow:
         ent_EBcha.grid(column = 7, row = 8)
 
 def SendData(self, BAS_str, BAS_dex, BAS_con, BAS_int, BAS_wis, BAS_cha, RB_str, RB_dex, RB_con, RB_int, RB_wis, RB_cha, IB_str, IB_dex, IB_con, IB_int, IB_wis, IB_cha, EB_str, EB_dex, EB_con, EB_int, EB_wis, EB_cha):
-    BAS_str = int(BAS_str.get('1.0', 'end'))
-    BAS_dex = int(BAS_dex.get('1.0', 'end'))
-    BAS_con
-    BAS_int
-    BAS_wis
-    BAS_cha
-    RB_str
-    RB_dex
-    RB_con
-    RB_int
-    RB_wis
-    RB_cha
-    IB_str
-    IB_dex
-    IB_con
-    IB_int
-    IB_wis
-    IB_cha
-    EB_str
-    EB_dex
-    EB_con
-    EB_int
-    EB_wis
-    EB_cha
-
-
+    try:
+        BAS_str = int(BAS_str.get('1.0', 'end'))
+        BAS_dex = int(BAS_dex.get('1.0', 'end'))
+        BAS_con = int(BAS_con.get('1.0', 'end'))
+        BAS_int = int(BAS_int.get('1.0', 'end'))
+        BAS_wis = int(BAS_wis.get('1.0', 'end'))
+        BAS_cha = int(BAS_cha.get('1.0', 'end'))
+        RB_str = int(RB_str.get('1.0', 'end'))
+        RB_dex = int(RB_dex.get('1.0', 'end'))
+        RB_con = int(RB_con.get('1.0', 'end'))
+        RB_int = int(RB_int.get('1.0', 'end'))
+        RB_wis = int(RB_wis.get('1.0', 'end'))
+        RB_cha = int(RB_cha.get('1.0', 'end'))
+        IB_str = int(IB_str.get('1.0', 'end'))
+        IB_dex = int(IB_dex.get('1.0', 'end'))
+        IB_con = int(IB_con.get('1.0', 'end'))
+        IB_int = int(IB_int.get('1.0', 'end'))
+        IB_wis = int(IB_wis.get('1.0', 'end'))
+        IB_cha = int(IB_cha.get('1.0', 'end'))
+        EB_str = int(EB_str.get('1.0', 'end'))
+        EB_dex = int(EB_dex.get('1.0', 'end'))
+        EB_con = int(EB_con.get('1.0', 'end'))
+        EB_int = int(EB_int.get('1.0', 'end'))
+        EB_wis = int(EB_wis.get('1.0', 'end'))
+        EB_cha = int(EB_cha.get('1.0', 'end'))
+        if strength > 99 or strength <= 0:
+                tkinter.messagebox.showerror(message = "Your character's strength score must be between 99 and 1.")
+            else:
+                strength = Strength(BAS_str, RB_str, IB_str, EB_str)
+        except:
+            tkinter.messagebox.showerror(message = "Your character's strength must be an integer.")
+            
 class Strength:
     def __init__(self, BAS_str, RB_str, IB_str, EB_str):
-        self.BAS_str = BAS_str
-        self.RB_str = RB_str
-        self.IB_str = IB_str
-        self.EB_str = EB_str
+        self.__BAS_str = BAS_str
+        self.__RB_str = RB_str
+        self.__IB_str = IB_str
+        self.__EB_str = EB_str
 
     def set_BAS_str(self, BAS_str):
-        self.BAS_str = BAS_str
+        self.__BAS_str = BAS_str
 
     def set_RB_str(self, RB_str):
-        self.BR_str = BR_str
+        self.__RB_str = BR_str
 
     def set_IB_str(self, IB_str):
-        self.IB_str = IB_str
+        self.__IB_str = IB_str
 
     def set_EB_str(self, EB_str):
-        self.EB_str = EB_str
+        self.__EB_str = EB_str
+
+    def CalcTotalAS(self, BAS_str, RB_str, IB_str, EB_str):
 
 
+    def get_BAS_str(self):
+        return self.__BAS_str
+
+    def get_RB_str(self):
+        return self.__RB_str
+
+    def get_IB_str(self):
+        return self.__IB_str
+
+    def get_EB_str(self):
+        return self.__EB_str
 
 
 
