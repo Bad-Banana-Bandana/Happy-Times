@@ -18,6 +18,9 @@ class MainWindow:
         frmAbilityScores['borderwidth'] = 2
         frmAbilityScores['relief'] = 'raised'
 
+        btn_CalcAS = tkinter.ttk.Button(frmAbilityScores, text = "Calculate", command = lambda: SendData(BAS_str, BAS_dex, BAS_con, BAS_int, BAS_wis, BAS_cha, RB_str, RB_dex, RB_con, RB_int, RB_wis, RB_cha, IB_str, IB_dex, IB_con, IB_int, IB_wis, IB_cha, EB_str, EB_dex, EB_con, EB_int, EB_wis, EB_cha))
+        btn_CalcAS.grid(column = 1, row = 9, columnspan = 9, padx = 15, pady = 15, sticky = (W, E, N, S))
+
         tkinter.ttk.Label(frmAbilityScores, text = "Bare Ability Scores").grid(column = 1, row = 1, rowspan = 2, padx = 10)
         tkinter.ttk.Label(frmAbilityScores, text = "Racial Bonuses").grid(column = 1, row = 3, rowspan = 2, padx = 10)
         tkinter.ttk.Label(frmAbilityScores, text = "Improvement Bonuses").grid(column = 1, row = 5, rowspan = 2, padx = 10)
@@ -163,12 +166,12 @@ def SendData(self, BAS_str, BAS_dex, BAS_con, BAS_int, BAS_wis, BAS_cha, RB_str,
         EB_wis = int(EB_wis.get('1.0', 'end'))
         EB_cha = int(EB_cha.get('1.0', 'end'))
         if strength > 99 or strength <= 0:
-                tkinter.messagebox.showerror(message = "Your character's strength score must be between 99 and 1.")
-            else:
-                strength = Strength(BAS_str, RB_str, IB_str, EB_str)
-        except:
-            tkinter.messagebox.showerror(message = "Your character's strength must be an integer.")
-            
+            tkinter.messagebox.showerror(message = "Your character's strength score must be between 99 and 1.")
+        else:
+            strength = Strength(BAS_str, RB_str, IB_str, EB_str)
+    except:
+        tkinter.messagebox.showerror(message = "Your character's strength must be an integer.")
+
 class Strength:
     def __init__(self, BAS_str, RB_str, IB_str, EB_str):
         self.__BAS_str = BAS_str
@@ -188,8 +191,10 @@ class Strength:
     def set_EB_str(self, EB_str):
         self.__EB_str = EB_str
 
-    def CalcTotalAS(self, BAS_str, RB_str, IB_str, EB_str):
-
+    #def CalcTotalAS(self, BAS_str, RB_str, IB_str, EB_str):
+        #totAS_str = self.__BAS_str + self.__RB_str + self.__IB_str + self.__EB_str
+        #mod_str = = math.floor(totAS_str/2)-5
+        #return mod_str
 
     def get_BAS_str(self):
         return self.__BAS_str
