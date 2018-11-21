@@ -170,7 +170,9 @@ def SendData(self, BAS_str, BAS_dex, BAS_con, BAS_int, BAS_wis, BAS_cha, RB_str,
         if BAS_str > 99 or BAS_str <= 0:
             tkinter.messagebox.showerror(message = "Your character's strength score must be between 99 and 1.")
         else:
-            ASResults = ASFrame(BAS_str, RB_str, IB_str, EB_str)
+            totAS_str = 0
+            mod_str = 0
+            ASResults = ASFrame(totAS_str, mod_str, BAS_str, RB_str, IB_str, EB_str)
 
     except ValueError:
         tkinter.messagebox.showerror(message = "All boxes must have contents and your character's strength must be an integer.")
@@ -198,13 +200,13 @@ class Strength:
         self.__EB_str = EB_str
 
     def CalcTotalAS(self, BAS_str, RB_str, IB_str, EB_str):
-        totAS_str = self.__BAS_str + self.__RB_str + self.__IB_str + self.__EB_str
+        self.__totAS_str = self.__BAS_str + self.__RB_str + self.__IB_str + self.__EB_str
 
     def get_totAS_str(self):
         return self.__totAS_str
 
     def CalcModAS(self, totAS_str):
-        mod_str = math.floor(totAS_str/2)-5
+        self.__mod_str = math.floor(self.__totAS_str/2)-5
 
     def get_mod_str(self):
         return self.__mod_str
@@ -231,6 +233,9 @@ class ASFrame:
         frmASResults.rowconfigure(0, weight=1)
         frmASResults['borderwidth'] = 2
         frmASResults['relief'] = 'raised'
-
-        tkinter.ttk.Label(frmASResults, text = strength.get_totAS_str()).grid(column = 1, row = 1, padx = 5, pady = 5)
-        tkinter.ttk.Label(frmASResults, text = strength.get_mod_str()).grid(column = 2, row = 1, padx = 5, pady = 5)
+        strength.CalcTotalAS(BAS_str, RB_str, IB_str, EB_str)
+        strength.CalcModAS(totAS_str)
+        total_strength = strength.get_totAS_str()
+        tkinter.ttk.Label(frmASResults, text = total_strength).grid(column = 1, row = 1, padx = 5, pady = 5)
+        mod_strength = strength.get_mod_str()
+        tkinter.ttk.Label(frmASResults, text = mod_strength).grid(column = 2, row = 1, padx = 5, pady = 5)
