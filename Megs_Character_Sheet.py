@@ -12,11 +12,14 @@ class MainWindow:
         self.MW = tkinter.Tk()
         self.MW.title("Main Window")
         frmAbilityScores = tkinter.ttk.Frame(self.MW)
-        frmAbilityScores.grid(column = 0, row = 0, sticky = (N, W, E, S))
+        frmAbilityScores.grid(column = 0, row = 0, padx = 15, pady = 15, sticky = (N, W, E, S))
         frmAbilityScores.columnconfigure(0, weight=1)
         frmAbilityScores.rowconfigure(0, weight=1)
         frmAbilityScores['borderwidth'] = 2
         frmAbilityScores['relief'] = 'raised'
+
+        btn_CalcAS = tkinter.ttk.Button(frmAbilityScores, text = "Calculate", command = lambda: SendData(self, BAS_str, BAS_dex, BAS_con, BAS_int, BAS_wis, BAS_cha, RB_str, RB_dex, RB_con, RB_int, RB_wis, RB_cha, IB_str, IB_dex, IB_con, IB_int, IB_wis, IB_cha, EB_str, EB_dex, EB_con, EB_int, EB_wis, EB_cha))
+        btn_CalcAS.grid(column = 1, row = 9, columnspan = 9, padx = 15, pady = 15, sticky = (W, E, N, S))
 
         tkinter.ttk.Label(frmAbilityScores, text = "Bare Ability Scores").grid(column = 1, row = 1, rowspan = 2, padx = 10)
         tkinter.ttk.Label(frmAbilityScores, text = "Racial Bonuses").grid(column = 1, row = 3, rowspan = 2, padx = 10)
@@ -136,8 +139,103 @@ class MainWindow:
         ent_EBwis.grid(column = 6, row = 8)
         ent_EBcha.grid(column = 7, row = 8)
 
-def main():
-    main_window = MainWindow()
-    main_window.MW.mainloop()
+def SendData(self, BAS_str, BAS_dex, BAS_con, BAS_int, BAS_wis, BAS_cha, RB_str, RB_dex, RB_con, RB_int, RB_wis, RB_cha, IB_str, IB_dex, IB_con, IB_int, IB_wis, IB_cha, EB_str, EB_dex, EB_con, EB_int, EB_wis, EB_cha):
+    try:
+        BAS_str = int(BAS_str.get())
+        print(BAS_str)
+        print(type(BAS_str))
+        BAS_dex = int(BAS_dex.get())
+        BAS_con = int(BAS_con.get())
+        BAS_int = int(BAS_int.get())
+        BAS_wis = int(BAS_wis.get())
+        BAS_cha = int(BAS_cha.get())
+        RB_str = int(RB_str.get())
+        RB_dex = int(RB_dex.get())
+        RB_con = int(RB_con.get())
+        RB_int = int(RB_int.get())
+        RB_wis = int(RB_wis.get())
+        RB_cha = int(RB_cha.get())
+        IB_str = int(IB_str.get())
+        IB_dex = int(IB_dex.get())
+        IB_con = int(IB_con.get())
+        IB_int = int(IB_int.get())
+        IB_wis = int(IB_wis.get())
+        IB_cha = int(IB_cha.get())
+        EB_str = int(EB_str.get())
+        EB_dex = int(EB_dex.get())
+        EB_con = int(EB_con.get())
+        EB_int = int(EB_int.get())
+        EB_wis = int(EB_wis.get())
+        EB_cha = int(EB_cha.get())
+        if BAS_str > 99 or BAS_str <= 0:
+            tkinter.messagebox.showerror(message = "Your character's strength score must be between 99 and 1.")
+        else:
+            totAS_str = 0
+            mod_str = 0
+            ASResults = ASFrame(totAS_str, mod_str, BAS_str, RB_str, IB_str, EB_str)
 
-main()
+    except ValueError:
+        tkinter.messagebox.showerror(message = "All boxes must have contents and your character's strength must be an integer.")
+
+
+class Strength:
+    def __init__(self, totAS_str, mod_str, BAS_str, RB_str, IB_str, EB_str):
+        self.__totAS_str = totAS_str
+        self.__mod_str = mod_str
+        self.__BAS_str = BAS_str
+        self.__RB_str = RB_str
+        self.__IB_str = IB_str
+        self.__EB_str = EB_str
+
+    def set_BAS_str(self, BAS_str):
+        self.__BAS_str = BAS_str
+
+    def set_RB_str(self, RB_str):
+        self.__RB_str = BR_str
+
+    def set_IB_str(self, IB_str):
+        self.__IB_str = IB_str
+
+    def set_EB_str(self, EB_str):
+        self.__EB_str = EB_str
+
+    def CalcTotalAS(self, BAS_str, RB_str, IB_str, EB_str):
+        self.__totAS_str = self.__BAS_str + self.__RB_str + self.__IB_str + self.__EB_str
+
+    def get_totAS_str(self):
+        return self.__totAS_str
+
+    def CalcModAS(self, totAS_str):
+        self.__mod_str = math.floor(self.__totAS_str/2)-5
+
+    def get_mod_str(self):
+        return self.__mod_str
+
+    def get_BAS_str(self):
+        return self.__BAS_str
+
+    def get_RB_str(self):
+        return self.__RB_str
+
+    def get_IB_str(self):
+        return self.__IB_str
+
+    def get_EB_str(self):
+        return self.__EB_str
+
+class ASFrame:
+    def __init__(self, totAS_str, mod_str, BAS_str, RB_str, IB_str, EB_str):
+        strength = Strength(totAS_str, mod_str, BAS_str, RB_str, IB_str, EB_str)
+        main_window = MainWindow()
+        frmASResults = tkinter.ttk.Frame(main_window.MW)
+        frmASResults.grid(column = 1, row = 0, padx = 15, pady = 15, sticky = (N, W, E, S))
+        frmASResults.columnconfigure(0, weight=1)
+        frmASResults.rowconfigure(0, weight=1)
+        frmASResults['borderwidth'] = 2
+        frmASResults['relief'] = 'raised'
+        strength.CalcTotalAS(BAS_str, RB_str, IB_str, EB_str)
+        strength.CalcModAS(totAS_str)
+        total_strength = strength.get_totAS_str()
+        tkinter.ttk.Label(frmASResults, text = total_strength).grid(column = 1, row = 1, padx = 5, pady = 5)
+        mod_strength = strength.get_mod_str()
+        tkinter.ttk.Label(frmASResults, text = mod_strength).grid(column = 2, row = 1, padx = 5, pady = 5)
